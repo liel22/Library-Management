@@ -48,13 +48,13 @@ app.post("/add-rating", async (req, res) => {
   }
 
   try {
-    const { book_id, rating } = req.body;
+    const { title, rating } = req.body;
 
     // Validate request body
-    if (!book_id || rating === undefined) {
+    if (!title || rating === undefined) {
       return res
         .status(400)
-        .json({ error: "'book_id' and 'rating' are required" });
+        .json({ error: "'title' and 'rating' are required" });
     }
 
     if (typeof rating !== "number" || rating < 1 || rating > 5) {
@@ -64,7 +64,7 @@ app.post("/add-rating", async (req, res) => {
     }
 
     // Find the book
-    const book = await booksCollection.findOne({ _id: new ObjectId(book_id) });
+    const book = await booksCollection.findOne({ title: title });
     if (!book) {
       return res.status(404).json({ error: "Book not found" });
     }
@@ -76,7 +76,7 @@ app.post("/add-rating", async (req, res) => {
 
     // Update the book in the database
     await booksCollection.updateOne(
-      { _id: new ObjectId(book_id) },
+      { title: title },
       { $set: { ratings: updatedRatings, average_rating: averageRating } }
     );
 
