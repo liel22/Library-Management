@@ -61,7 +61,8 @@ def return_book():
         
 
         # Check if the book is currently borrowed by the user
-        borrow_record = books_collection.find_one({"title": title, "status": "borrowed","borrower_id": str(user["_id"])})
+        borrow_record = books_collection.find_one({"title": title, "status": "borrowed","borrower_id": user["_id"]})
+        print("test",borrow_record)
         if not borrow_record:
             return jsonify({"error": "No active borrowing record found for this user and book"}), 404
 

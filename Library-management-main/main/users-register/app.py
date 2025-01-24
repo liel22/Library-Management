@@ -46,15 +46,6 @@ def register_user():
         return jsonify({"error": "External Error"}), 402
         
             
-    
-    
-    
  
-    
-    
-
-   
-
-
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
