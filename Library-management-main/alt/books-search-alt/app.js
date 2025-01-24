@@ -6,6 +6,7 @@ const { MongoClient } = require("mongodb");
 const app = express();
 const PORT = 5008;
 app.use(cors());
+module.exports = app;
 
 // MongoDB Connection
 const MONGO_URI =

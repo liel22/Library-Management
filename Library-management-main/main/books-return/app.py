@@ -52,7 +52,7 @@ def return_book():
     try:
         # Parse request data
         data = request.json
-        if not data or "title" not in data or "title" not in data:
+        if not data or "title" not in data:
             return jsonify({"error": "Invalid request. 'user_id' and 'title' are required."}), 400
 
         username = data["username"]
@@ -61,7 +61,7 @@ def return_book():
         
 
         # Check if the book is currently borrowed by the user
-        borrow_record = books_collection.find_one({"title": title, "status": "borrowed","borrower_id": str(user["_id"])})
+        borrow_record = books_collection.find_one({"title": title, "status": "borrowed","borrower_id": user["_id"]})
         if not borrow_record:
             return jsonify({"error": "No active borrowing record found for this user and book"}), 404
 
