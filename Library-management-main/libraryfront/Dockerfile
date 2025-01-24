@@ -1,17 +1,11 @@
-# שימוש בתמונה של Python
-FROM python:3.9-slim
-
-# הגדרת תיקיית העבודה
+FROM node:16-alpine AS build
 WORKDIR /app
-
-# העתקת כל הקבצים לתוך הקונטיינר
+COPY package.json package-lock.json ./
+RUN npm install
 COPY . .
+RUN npm run build
 
-# התקנת הספריות הנדרשות
-RUN pip install --no-cache-dir flask pymongo
-
-# חשיפת הפורט
-EXPOSE 5000
-
-# פקודת ההפעלה של השירות
-CMD ["python", "app.py"]
+FROM nginx:alpine
+COPY --from=build /app/build /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

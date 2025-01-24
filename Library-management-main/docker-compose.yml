@@ -109,6 +109,15 @@ services:
     networks:
       - app-network
 
+  frontend:
+    build:
+      context: ./libraryfront
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80" # מציג את הפרונט ב-PORT 3000
+    networks:
+      - app-network
+
 networks:
   app-network:
     driver: bridge
