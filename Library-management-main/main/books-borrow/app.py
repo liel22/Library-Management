@@ -37,8 +37,8 @@ def borrow_book():
     
     Request JSON:
         {
-            "user_id": "12345",
-            "book_id": "1"
+            "username": "string",
+            "title": "string"   
         }
     
     Returns:
